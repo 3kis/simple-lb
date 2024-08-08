@@ -147,11 +147,11 @@ func main() {
 				return
 			}
 
-			log.Printf("site unreachable: ")
+			log.Printf("site unreachable: \n")
 			serverPool.MarkBackendStatus(backendUrl, false)
 			attempts := GetAttemptFromContext(request)
 			ctx := context.WithValue(request.Context(), Attempt, attempts+1)
-			log.Printf("Attempt++")
+			log.Printf("Attempt++\n")
 			lb(writer, request.WithContext(ctx))
 
 		}
@@ -169,7 +169,7 @@ func main() {
 	}
 	go healthCheck()
 
-	go StartAllServer()
+	StartAllServer()
 
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatalln("start load balancer fail... please check")
